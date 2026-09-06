@@ -1,0 +1,50 @@
+{
+  "_comment": "Required keys of manifest_v2.json, with null in place of every measured value. Documentation only - fill a copy from the result files listed in README.md.",
+  "_provenance": {"built_from": "harness/results/**", "date": null, "notes": null},
+  "r2r3": {
+    "qwen3-1p7b": {"accuracy": null, "auroc_se": null, "auroc_neg_logprob": null, "auroc_lexical": null, "probe_best": null},
+    "qwen3-4b": {"accuracy": null, "auroc_se": null, "auroc_neg_logprob": null, "auroc_lexical": null, "probe_best": null},
+    "qwen3-8b": {"accuracy": null, "auroc_se": null, "auroc_neg_logprob": null, "auroc_lexical": null, "probe_best": null},
+    "qwen3-14b": {"accuracy": null, "auroc_se": null, "auroc_neg_logprob": null, "auroc_lexical": null, "probe_best": null},
+    "llama32-1b": {"accuracy": null, "auroc_se": null, "auroc_neg_logprob": null, "auroc_lexical": null, "probe_best": null},
+    "llama31-8b": {"accuracy": null, "auroc_se": null, "auroc_neg_logprob": null, "auroc_lexical": null, "probe_best": null},
+    "mistral-7b": {"accuracy": null, "auroc_se": null, "auroc_neg_logprob": null, "auroc_lexical": null, "probe_best": null},
+    "gemma3-4b": {"accuracy": null, "auroc_se": null, "auroc_neg_logprob": null, "auroc_lexical": null, "probe_best": null}
+  },
+  "e3": {
+    "qwen3-1p7b": {"arms": {
+      "A_base_plain": {"wrong_rate": null, "abstain_rate": null, "accuracy_overall": null},
+      "B_base_abstainprompt": {"wrong_rate": null, "abstain_rate": null, "accuracy_overall": null},
+      "C_tuned_plain": {"wrong_rate": null, "abstain_rate": null, "accuracy_overall": null},
+      "D_tuned_abstainprompt": {"wrong_rate": null, "abstain_rate": null, "accuracy_overall": null}}},
+    "qwen3-4b": {"arms": {}},
+    "qwen3-8b": {"arms": {}},
+    "qwen3-14b-4bit": {"arms": {}},
+    "_bootstrap_ci": {
+      "qwen3-1p7b": {
+        "arms": {
+          "A_base_plain": {"s": null, "ci95": [null, null]},
+          "B_base_abstainprompt": {"s": null, "ci95": [null, null]},
+          "C_tuned_plain": {"s": null, "ci95": [null, null]},
+          "D_tuned_abstainprompt": {"s": null, "ci95": [null, null]}},
+        "probe_gated": {"abstain_0.10": {"s": null, "ci95": [null, null]}}
+      },
+      "qwen3-4b": {}, "qwen3-8b": {}, "qwen3-14b-4bit": {}
+    }
+  },
+  "quant": {
+    "qwen3-8b-4bit": {
+      "fp16": {"accuracy": null, "auroc_se": null, "auroc_logprob": null, "auroc_lexical": null, "probe": {"last_layer_final": null}},
+      "quant": {"accuracy": null, "auroc_se": null, "auroc_logprob": null, "auroc_lexical": null, "probe": {"last_layer_final": null}}
+    }
+  },
+  "e5": {
+    "v2": {
+      "qwen3-1p7b": {"transfer": {"domains": {
+        "medical": {"auroc_semantic_entropy": null, "probe": {"last_layer_final": {"transfer_auroc": null, "indomain_oof_auroc": null}}},
+        "legal": {"auroc_semantic_entropy": null, "probe": {"last_layer_final": {"transfer_auroc": null, "indomain_oof_auroc": null}}}
+      }}},
+      "qwen3-4b": {}, "qwen3-8b": {}, "qwen3-14b-4bit": {}
+    }
+  }
+}

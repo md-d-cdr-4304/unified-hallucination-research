@@ -1,0 +1,69 @@
+# Configuration of the agentic simulation (E6-sim, thesis Chapter on the
+# agentic framework). Read by harness/experiments/e6_sim/propagate.py, which
+# falls back to these same values if the file is absent, so the archived
+# propagation.json is reproducible from this file alone.
+#
+# E6-sim is a Monte-Carlo model of an n-step pipeline, NOT an empirical agent
+# run. Its inputs are measured quantities from Phase 1/2 (per-step error =
+# 1 - greedy accuracy; detector quality = probe/SE AUROC), read from the
+# numbers manifest; everything below is the design of the simulation itself.
+
+seed: 20260901          # same seed as the sampling and the bootstrap
+runs: 20000             # Monte-Carlo runs per configuration (halved/quartered per block, see below)
+
+# Manifest supplying the measured calibration points, relative to the repo root.
+manifest: thesis/v3/data/manifest_v2.json
+out: harness/results/e6_sim/propagation.json
+
+# Models whose measured accuracy and probe AUROC calibrate the simulation.
+# Keys index manifest["r2r3"]; p = 1 - accuracy, detector AUROC = probe_best.
+calibration_models: [qwen3-1p7b, qwen3-4b, qwen3-8b, qwen3-14b]
+detector_model: qwen3-4b        # the AUROC used wherever a single detector is assumed
+
+# Per-step unforced hallucination probabilities explored in the grid.
+step_error_grid: [0.02, 0.05, 0.10, 0.20, 0.30]
+
+# Probability that a step built on a corrupted state stays corrupted
+# (1 - rho = the step re-derives from the source and repairs it).
+rho: 0.8
+
+# Containment levers. fpr = detector false-alarm rate per step (0 = detector
+# off); verifier_fix = P(a verifier retry repairs a flagged hallucination);
+# predicate_catch = fraction of hallucinations violating a checkable constraint;
+# abstain_fpr = false-alarm rate of the abstention gate (0 = no gate).
+levers:
+  none:               {fpr: 0.00, verifier_fix: 0.0, predicate_catch: 0.0, abstain_fpr: 0.00}
+  detector+verifier:  {fpr: 0.10, verifier_fix: 0.8, predicate_catch: 0.0, abstain_fpr: 0.00}
+  predicate:          {fpr: 0.00, verifier_fix: 0.0, predicate_catch: 0.5, abstain_fpr: 0.00}
+  abstention:         {fpr: 0.00, verifier_fix: 0.0, predicate_catch: 0.0, abstain_fpr: 0.05}
+  full-stack:         {fpr: 0.10, verifier_fix: 0.8, predicate_catch: 0.5, abstain_fpr: 0.05}
+
+# Block 1: propagation curves, P(wrong final | fault injected at step s).
+# Every step index plus the no-injection case, for each pipeline length.
+propagation_curves:
+  pipeline_lengths: [5, 10, 15]
+  runs_divisor: 4               # runs // 4 per curve point
+
+# Block 2: measured-anchor pipelines (no injection); per-step error is the
+# measured 1 - accuracy of each calibration model on TriviaQA.
+measured_anchor:
+  pipeline_lengths: [1, 3, 5, 10]
+  runs_divisor: 4
+
+# Block 3: one-factor sweeps. Common operating point unless stated otherwise:
+# p = 0.10, n = 10, rho = 0.8, detector = the detector_model probe AUROC.
+sweeps:
+  runs_divisor: 2
+  p: 0.10
+  n_steps: 10
+  inject_at: 2                  # null in gate_fpr (no injection: it measures coverage)
+  rho: [0.0, 0.2, 0.5, 0.8, 0.9, 1.0]
+  auroc: [0.5, 0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 0.99]   # with fpr 0.10, verifier_fix 0.8
+  gate_fpr: [0.0, 0.01, 0.02, 0.05, 0.10, 0.20]              # no injection
+  verifier_fix: [0.0, 0.25, 0.5, 0.75, 0.9, 1.0]             # with fpr 0.10
+
+# Block 4: does an early fault cost more than a late one? Inject at the first
+# vs the last step of a 10-step pipeline, over the step-error grid.
+late_vs_early:
+  n_steps: 10
+  runs_divisor: 2

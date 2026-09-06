@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this material, please cite the thesis and this repository."
+title: "Unified hallucination research: experiment harness, data, and analysis"
+abstract: >-
+  Experiment harness, frozen item lists, raw and scored model responses,
+  analysis outputs, and figure/table scripts supporting a master's thesis on
+  hallucination in large language models at the prompt, agent, and local-model
+  levels.
+type: software
+authors:
+  - family-names: Momin            # CHECK the given/family split before deposit
+    given-names: Dilshaan
+    email: lumenar.dev@gmail.com
+license: MIT
+license-url: "https://github.com/  # TODO: repository URL"
+repository-code: "TODO: repository URL"
+doi: "TODO: persistent identifier, minted at deposit"
+version: "1.0.0-predeposit"
+date-released: "TODO: deposit date"
+keywords:
+  - large language models
+  - hallucination
+  - prompt engineering
+  - abstention
+  - hallucination detection
+  - reproducibility
+references:
+  - type: thesis
+    title: "TODO: thesis title"
+    authors:
+      - family-names: Momin
+        given-names: Dilshaan
+    thesis-type: "Master's thesis"
+    institution:
+      name: "Blekinge Institute of Technology"
+    year: 2026

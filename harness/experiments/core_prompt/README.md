@@ -9,10 +9,15 @@ prompt, four datasets, four models, ten runs, paired statistics.
 | Step | Command | Output |
 |---|---|---|
 | 1. Fixed items (done) | `python experiments/core_prompt/build_items.py` | `data/core_prompt/items.jsonl` (800 items, 20 sentinel) |
+| 1b. Identifier-only list | `python experiments/core_prompt/export_item_ids.py` | `data/core_prompt/items.ids.jsonl` (no source text; safe to redistribute) |
 | 2. Generate | `BACKEND=openai N_RUNS=10 WORKERS=8 python experiments/core_prompt/generate.py` | `results/core_prompt/<backend>--<model>/responses.jsonl`, `run_meta.json`, `sentinel_<session>.json` |
 | 3. Score | `python experiments/core_prompt/score.py results/core_prompt/<dir>` | `scored.jsonl`, `score_meta.json` |
 | 4. Analyse | `python experiments/core_prompt/analyze.py results/core_prompt/<dir> ... --out results/core_prompt/summary.json` | metrics, CIs, McNemar, Wilcoxon, Bonferroni, Cohen's h |
-| 5. Annotation sheets | `annotation_sheets.py` (TODO) | 100 outputs/model for two annotators, Cohen's kappa |
+| 5. Annotation sheets | `annotation_sheets.py build results/core_prompt/<dir> --n 100` | `annotation/sheet_annotator_{A,B}.csv`, `key.json`, `INSTRUCTIONS.md` |
+| 6. Agreement | `annotation_sheets.py kappa <sheet_A.csv> <sheet_B.csv> --key key.json --out agreement.json` | Cohen's kappa, raw agreement, disagreements, scorer-vs-human agreement |
+
+Tables and figures are built from step 4 by `thesis/v3/build_core_tables.py`.
+The full command list for the whole thesis is `docs/APPENDIX_E_COMMANDS.md`.
 
 Backends: `openai` (gpt-4o-mini, needs OPENAI_API_KEY), `gemini` (needs GEMINI_API_KEY; check gemini-1.5-flash is still served, else set MODEL_ID to the current Flash snapshot and record it), `moonshot` (moonshot-v1-8k, MOONSHOT_API_KEY), `ollama` (llama3:8b-instruct-q4_K_M; Kaggle kernel via `kaggle/build_core_prompt_kernel.py <slug> <dir> ollama`), `nim` (pilot/judge only), `hf` (transformers; extension bridge, saves log-probs and hidden states).
 

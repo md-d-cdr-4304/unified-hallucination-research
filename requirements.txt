@@ -12,6 +12,6 @@ matplotlib==3.11.1
 tqdm==4.70.0
 PyYAML==6.0.3
 
-# Thesis build (thesis/build.py, thesis/to_latex.py)
+# Thesis build (thesis/v3/build.py, thesis/v3/to_latex.py)
 weasyprint==69.0
 pypdf==6.16.2

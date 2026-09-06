@@ -1,4 +1,4 @@
-# Model registry. See ../../MODEL_ROSTER_AND_COMPUTE.md for rationale.
+# Model registry. See ../../docs/MODEL_ROSTER_AND_COMPUTE.md for rationale.
 #
 # NIM catalog caveat (probed 2026-09-01): only 14/83 listed models are invocable
 # on this account (results/nim_invocable_models.json). None of the 1-14B roster
