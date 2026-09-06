@@ -1,0 +1,17 @@
+import os, subprocess, sys
+subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-U", "transformers", "accelerate", "datasets", "pyarrow"], check=True)
+os.environ.setdefault("MODEL_ID", "__MODEL_ID__")
+os.environ.setdefault("N_QUESTIONS", "300")
+os.environ.setdefault("K_SAMPLES", "10")
+os.environ.setdefault("OUT_DIR", "/kaggle/working/out")
+# HF token for gated models: from the user's private Kaggle dataset
+# (mastaan/hf-token-secret), with web-UI secret as fallback.
+_token_file = "/kaggle/input/hf-token-secret/hf_token.txt"
+if os.path.exists(_token_file):
+    os.environ["HF_TOKEN"] = open(_token_file).read().strip()
+else:
+    try:
+        from kaggle_secrets import UserSecretsClient
+        os.environ["HF_TOKEN"] = UserSecretsClient().get_secret("HF_TOKEN")
+    except Exception:
+        pass

@@ -1,0 +1,10 @@
+# GPU environment for the local open-weight arms (Kaggle T4 x2 / rented A100).
+# On Kaggle most of these are preinstalled; the kernel headers pin only what
+# needs to change (see harness/kaggle/README.md for the torchao caveat).
+-r requirements.txt
+
+torch
+transformers
+accelerate
+bitsandbytes
+peft

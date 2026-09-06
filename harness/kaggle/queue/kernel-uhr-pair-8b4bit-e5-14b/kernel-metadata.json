@@ -1,0 +1,19 @@
+{
+ "id": "mastaan/uhr-pair-8b4bit-e5-14b",
+ "title": "uhr-pair-8b4bit-e5-14b",
+ "code_file": "uhr-pair-8b4bit-e5-14b.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": [
+  "gpu"
+ ],
+ "dataset_sources": [],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

@@ -1,0 +1,19 @@
+{
+ "id": "mastaan/uhr-e5-pair-1p7b-4b",
+ "title": "uhr-e5-pair-1p7b-4b",
+ "code_file": "uhr-e5-pair-1p7b-4b.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_tpu": false,
+ "enable_internet": true,
+ "keywords": [
+  "gpu"
+ ],
+ "dataset_sources": [],
+ "kernel_sources": [],
+ "competition_sources": [],
+ "model_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

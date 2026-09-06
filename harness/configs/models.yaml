@@ -1,0 +1,29 @@
+# Model registry. See ../../MODEL_ROSTER_AND_COMPUTE.md for rationale.
+#
+# NIM catalog caveat (probed 2026-09-01): only 14/83 listed models are invocable
+# on this account (results/nim_invocable_models.json). None of the 1-14B roster
+# models are served -> roster models run locally (Kaggle/rented GPU); NIM is for
+# judges and frontier references only.
+
+# Local open-weight roster (HF ids) - constraint sweep + training arm
+roster:
+  primary_ladder:            # Qwen3, Apache 2.0, ungated
+    - {id: Qwen/Qwen3-1.7B, params_b: 1.7}
+    - {id: Qwen/Qwen3-4B,   params_b: 4}
+    - {id: Qwen/Qwen3-8B,   params_b: 8}
+    - {id: Qwen/Qwen3-14B,  params_b: 14}
+  cross_family:
+    - {id: meta-llama/Llama-3.2-1B-Instruct,   params_b: 1,  gated: true}
+    - {id: meta-llama/Llama-3.1-8B-Instruct,   params_b: 8,  gated: true}
+    - {id: mistralai/Mistral-7B-Instruct-v0.3, params_b: 7,  gated: true}
+    - {id: google/gemma-3-4b-it,               params_b: 4,  gated: true}
+
+# NIM API (verified invocable 2026-09-01)
+nim:
+  judge: meta/llama-3.2-11b-vision-instruct   # non-reasoning, clean Yes/No
+  judge_alt: openai/gpt-oss-20b               # reasoning model; needs high max_tokens
+  frontier: openai/gpt-oss-120b
+  other_invocable:
+    - google/gemma-4-31b-it
+    - nvidia/nemotron-3.5-lightning-30b-a3b
+    - nvidia/nemotron-3-nano-30b-a3b
